@@ -6,7 +6,7 @@ import TaskStats from './TaskStats';
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
 import axios from 'axios';
-
+const baseURL = import.meta.env.VITE_BASE_URL;
 const ToDoApp = () => {
   const [tasks, setTasks] = useState([]);
   const [currentView, setCurrentView] = useState('home');
@@ -18,20 +18,9 @@ const ToDoApp = () => {
     fetchTasksByDate(selectedDate);
   }, [[selectedDate]]);
 
-//   const fetchTasksByWeek = async () => {
-//     try {
-//       const today = new Date();
-//       const formattedDate = today.toISOString().split('T')[0];
-//       const response = await axios.get(`http://localhost:3000/api/tasks/week/${formattedDate}`);
-//       setTasks(response.data);
-//     } catch (error) {
-//       console.error('Error fetching tasks:', error);
-//     }
-//   };
-
 const fetchTasksByDate = async (date) => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/tasks/week/${date}`);
+      const response = await axios.get(`${baseURL}/api/tasks/week/${date}`);
       setTasks(response.data);
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -41,7 +30,7 @@ const fetchTasksByDate = async (date) => {
 
   const addTask = async (newTask) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/tasks', newTask);
+      const response = await axios.post(`${baseURL}/api/tasks`, newTask);
       setTasks([...tasks, response.data]);
       setCurrentView('home')
     } catch (error) {
@@ -51,7 +40,7 @@ const fetchTasksByDate = async (date) => {
 
   const updateTask = async (taskId, updatedData) => {
     try {
-      const response = await axios.put(`http://localhost:3000/api/tasks/${taskId}`, updatedData);
+      const response = await axios.put(`${baseURL}/api/tasks/${taskId}`, updatedData);
       setTasks(tasks.map(task => (task._id === taskId ? response.data : task)));
       setCurrentView('home')
     } catch (error) {
@@ -61,7 +50,7 @@ const fetchTasksByDate = async (date) => {
 
   const deleteTask = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:3000/api/tasks/${taskId}`);
+      await axios.delete(`${baseURL}/api/tasks/${taskId}`);
       setTasks(tasks.filter(task => task._id !== taskId));
     } catch (error) {
       console.error('Error deleting task:', error);

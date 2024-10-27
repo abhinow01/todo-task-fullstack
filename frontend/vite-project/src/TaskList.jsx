@@ -6,7 +6,7 @@ const TaskList = ({ tasks, searchQuery, deleteTask, toggleView, updateTaskStatus
     task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     task.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
+ 
   const handleToggleCompletion = (taskId) => {
     const task = tasks.find((t) => t._id === taskId);
     if (task) {
@@ -36,7 +36,7 @@ const TaskList = ({ tasks, searchQuery, deleteTask, toggleView, updateTaskStatus
               <div className={`${task.status === 'Completed' ? 'line-through text-gray-500' : ''}`}>
                 <div className="font-medium">{task.title}</div>
                 <div className="text-sm text-gray-500">
-                  {task.startTime} - {task.endTime}
+                {task.startTime} - {task.endTime}
                 </div>
               </div>
             </div>
