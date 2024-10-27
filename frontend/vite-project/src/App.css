@@ -1,0 +1,13 @@
+.wavy-lines {
+    background-image: repeating-radial-gradient(
+      circle at 0 50%,      /* Creates circles starting from the middle left side */
+      currentColor 0px,     /* Start of the line color */
+      currentColor 2px,     /* End of the line color (thickness) */
+      transparent 2px,      /* Start of the transparent space */
+      transparent 10px      /* End of the transparent space */
+    );
+    background-size: 100px 10px; /* Width and height of each wave pattern */
+    width: 100%;
+    height: 100%;
+  }
+  
