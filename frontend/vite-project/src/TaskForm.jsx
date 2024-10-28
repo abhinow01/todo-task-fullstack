@@ -19,7 +19,8 @@ const TaskForm = ({ task, onSubmit, onCancel }) => {
       setStatus(task.status);
     }
   }, [task]);
-
+  const today = new Date().toISOString().split('T')[0];
+  const currentTime = new Date().toISOString().split('T')[1].slice(0, 5);
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedTask = { title, description, date, startTime, endTime, status };
@@ -54,6 +55,7 @@ const TaskForm = ({ task, onSubmit, onCancel }) => {
           type="date"
           className="w-full p-2 border rounded"
           value={date}
+          min={today}
           onChange={(e) => setDate(e.target.value)}
           required
         />
@@ -64,6 +66,7 @@ const TaskForm = ({ task, onSubmit, onCancel }) => {
           type="time"
           className="w-full p-2 border rounded"
           value={startTime}
+          min={date === today ? currentTime : ''}
           onChange={(e) => setStartTime(e.target.value)}
         />
       </div>
@@ -73,6 +76,7 @@ const TaskForm = ({ task, onSubmit, onCancel }) => {
           type="time"
           className="w-full p-2 border rounded"
           value={endTime}
+          min={date === today ? currentTime : ''}
           onChange={(e) => setEndTime(e.target.value)}
         />
       </div>
